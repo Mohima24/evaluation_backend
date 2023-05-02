@@ -4,10 +4,9 @@ const Usermodel = require('../models/user.model')
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken')
 const authentication = require('../middleware/authentication')
-userRouter.get('/',(req,res)=>{
-    let x =new Date('2000-10-24T00:00:00.000+00:00')
-    console.log(x.getDate())
-    res.send("user page")
+userRouter.get('/users',async(req,res)=>{
+    let finduser = await Usermodel.find()
+    res.send(finduser)
 })
 
 userRouter.get('/users/:id/friends',async( req,res)=>{

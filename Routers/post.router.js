@@ -4,8 +4,9 @@ const Postmodel = require('../models/post.model');
 const Usermodel = require('../models/user.model');
 const authentication = require('../middleware/authentication');
 
-postRouter.get('/posts',(req,res)=>{
-    res.send("Post page")
+postRouter.get('/posts',async(req,res)=>{
+    let posts = await Postmodel.find()
+    res.send(posts)
 })
 
 postRouter.get('/posts/:id',async(req,res)=>{
