@@ -1,28 +1,22 @@
-const express = require("express")
-require('dotenv').config()
-const cors= require("cors")
-const {connection}= require("./config/db")
-const {userRouter} = require("./router/user.router")
-const {postRouter} = require("./router/post.rout")
-const {aunthentication} = require("./middleWare/authenticate")
-const app= express()
+const express = require('express')
+const app = express()
+const conncetion = require('./config/db')
+const postRouter = require('./Routers/post.router');
+const userRouter = require('./Routers/user.router');
+
 app.use(express.json())
 
-app.get("/",(req,res)=>{
-    res.send("home page")
-})
-app.use(cors())
-app.use("/users",userRouter)
-app.use(aunthentication)
-app.use("/posts",postRouter)
+app.use('/api',userRouter)
 
-app.listen(process.env.port,async()=>{
+app.use('/api',postRouter)
+
+
+app.listen(8888,async()=>{
+    console.log('http://localhost:8888')
     try{
-        connection
-        console.log(`Listening to http://localhost:${process.env.port}`)
-    }
-    catch(err){
-        console.log(err)
-        console.log("Error while connecting to the mongoose server")
+        conncetion
+        console.log("db connected")
+    }catch(err){
+        console.log("while connecting with mongodb")
     }
 })
